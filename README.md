@@ -1,5 +1,15 @@
 I wrote an R implementation of Tolson & Shoemaker's DDS algorithm.  Questions relating to my implementation of the algorithm can be directed to admin@brandon-d-bass.com.  All usage and licensing questions should be directed to Dr. Bryan Tolson at btolson@uwaterloo.ca.  
 
+Inputs
+====================
+xBounds is a two-column data-frame containing the minimum and maximum bounds of each element in x.  x will be passed to the objective function.
+numIter is a scalar value corresponding to the number of iterations to be completed in the DDS algorithm.  The number of iterations will determine the rate which the probability of peturbing each element of x will decrease.  
+OBJFUN is a function which will be used as the objective function which will be minimized.  
+
+Outputs
+====================
+The dds function returns a two entry list, containing the x_best and y_best as they evolve over numIter.  
+
 Dynamically-Dimensioned-Search
 ==============================
 
