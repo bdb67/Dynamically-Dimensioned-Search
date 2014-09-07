@@ -25,15 +25,8 @@ dds<-function(xBounds.df, numIter, OBJFUN){
     # Input is xBounds & numIter.  
     # Returns numIter entry list with the indices which will be peturbed
     xDims<-nrow(x)
-    peturbIdx<-list()
-    #x.mat<-cbind(1:numIter, nrow(x))
-    #peturbIdx<-apply(x.mat, 1, function(x) sample(c(FALSE,TRUE), size=x[2], replace= TRUE, prob = c(log(x[1])/log(numIter), 1-log(x[1])/log(numIter))))
-    
-    for (i in 1:(numIter)){
-      peturbIdx[[i]]<-sample(c(FALSE,TRUE), xDims, replace= TRUE, prob = c(log(i)/log(numIter), 1-log(i)/log(numIter)))
-    }    
-    peturbIdx<-apply(matrix(unlist(peturbIdx), ncol = xDims, byrow=TRUE), 1, which)
-    
+    probabilityVector<-1-log(1:numIter)/log(numIter)
+    peturbIdx<-apply(matrix(unlist(lapply(probabilityVector, function(x) as.logical(rbinom(xDims, 1, x)))), byrow=TRUE, ncol=xDims), 1, which)
     return(peturbIdx)
   }
   peturbIdx<-probPeturb(xBounds.df, numIter)
